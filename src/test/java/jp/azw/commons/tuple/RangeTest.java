@@ -1,11 +1,9 @@
 package jp.azw.commons.tuple;
 
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import java.util.Calendar;
-import java.util.stream.IntStream;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,7 @@ public abstract class RangeTest {
 	static final int MAX = 15;
 	static final int MIN = 10;
 
-	static final int YEAR = 1994;
+	static final int YEAR = 1992;
 	static final int MONTH = 1;
 	static final int DAY1 = 10;
 	static final int DAY2 = 20;
