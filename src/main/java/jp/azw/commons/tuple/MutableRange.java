@@ -3,78 +3,45 @@ package jp.azw.commons.tuple;
 import java.util.Optional;
 
 public class MutableRange<T extends Comparable<T>> implements Range<T> {
-	private Optional<T> first;
-	private Optional<T> second;
+	private Optional<T> min;
+	private Optional<T> max;
 
 	protected MutableRange(T first, T second) {
-		this.first = Optional.ofNullable(first);
-		this.second = Optional.ofNullable(second);
-	}
-
-	private boolean isFirstMax() {
-		throwIfStateIsntBoth();
-		return first.get().compareTo(second.get()) >= 0;
-	}
-
-	public MutableRange<T> setFirst(T first) {
-		this.first = Optional.ofNullable(first);
-		return this;
-	}
-	public MutableRange<T> setSecond(T second) {
-		this.second = Optional.ofNullable(second);
-		return this;
-	}
-
-	public void setMax(T max) {
-		switch (state()) {
-		case BOTH:
-			if (isFirstMax()) {
-				setFirst(max);
-			} else {
-				setSecond(max);
-			}
-			break;
-		case ONLY_FIRST:
-			setSecond(max);
-			break;
-		case ONLY_SECOND:
-			setFirst(max);
-			break;
-		case NONE:
-			setFirst(max);
-			break;
-		}
+		this.min = Optional.ofNullable(first);
+		this.max = Optional.ofNullable(second);
+		order();
 	}
 	
-	public void setMin(T min) {
-		switch (state()) {
-		case BOTH:
-			if (!isFirstMax()) {
-				setFirst(min);
-			} else {
-				setSecond(min);
-			}
-			break;
-		case ONLY_FIRST:
-			setSecond(min);
-			break;
-		case ONLY_SECOND:
-			setFirst(min);
-			break;
-		case NONE:
-			setFirst(min);
-			break;
+	private void order() {
+		if (state() == PairState.BOTH && min.get().compareTo(max.get()) >= 0) {
+			Optional<T> tmp = min;
+			min = max;
+			max = tmp;
 		}
 	}
 
-	private void throwIfStateIsntBoth() {
-		if (state() != PairState.BOTH) {
-			throw new IllegalStateException("Both of variables should have value.");
-		}
+	synchronized public MutableRange<T> changeMax(T max) {
+		this.max = Optional.ofNullable(max);
+		order();
+		return this;
+	}
+	
+	synchronized public MutableRange<T> changeMin(T min) {
+		this.min = Optional.ofNullable(min);
+		order();
+		return this;
 	}
 
-	public static <T extends Comparable<T>> MutableRange<T> of(T first, T second) {
-		return new MutableRange<T>(first, second);
+	public static <T extends Comparable<T>> MutableRange<T> between(T min, T max) {
+		return new MutableRange<T>(min, max);
+	}
+	
+	public static <T extends Comparable<T>> MutableRange<T> beginAt(T min) {
+		return new MutableRange<T>(min, null);
+	}
+	
+	public static <T extends Comparable<T>> MutableRange<T> endWith(T max) {
+		return new MutableRange<T>(null, max);
 	}
 
 	public static <T extends Comparable<T>> MutableRange<T> empty() {
@@ -82,53 +49,37 @@ public class MutableRange<T extends Comparable<T>> implements Range<T> {
 	}
 
 	@Override
-	public T getMax() {
-		switch (state()) {
-		case BOTH:
-			return isFirstMax() ? first.get() : second.get();
-		case ONLY_FIRST:
-			return first.get();
-		case ONLY_SECOND:
-			return second.get();
-		default:
-			return null;
-		}
+	synchronized public T getMax() {
+		order();
+		return max.orElse(null);
 	}
 
 	@Override
-	public T getMin() {
-		switch (state()) {
-		case BOTH:
-			return !isFirstMax() ? first.get() : second.get();
-		case ONLY_FIRST:
-			return first.get();
-		case ONLY_SECOND:
-			return second.get();
-		default:
-			return null;
-		}
+	synchronized public T getMin() {
+		order();
+		return min.orElse(null);
 	}
 
 	@Override
-	public boolean includes(T object) {
+	synchronized public boolean includes(T object) {
 		if (state() != PairState.BOTH) {
-			throw new IllegalStateException("Both of variables should have value.");
+			throw new IllegalStateException("Both variables should have any value.");
 		}
 		return getMin().compareTo(object) <= 0 && getMax().compareTo(object) >= 0;
 	}
 
 	@Override
 	public T getFirst() {
-		return first.orElse(null);
+		return getMin();
 	}
 
 	@Override
 	public T getSecond() {
-		return second.orElse(null);
+		return getMax();
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	synchronized public boolean equals(Object obj) {
 		if (obj instanceof Range) {
 			Range<?> range = (Range<?>) obj;
 			return getMin().equals(range.getMin()) && getMax().equals(range.getMax());
@@ -139,6 +90,6 @@ public class MutableRange<T extends Comparable<T>> implements Range<T> {
 
 	@Override
 	public PairState state() {
-		return PairState.optionalState(first, second);
+		return PairState.optionalState(min, max);
 	}
 }
