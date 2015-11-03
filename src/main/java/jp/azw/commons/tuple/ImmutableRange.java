@@ -13,7 +13,7 @@ public class ImmutableRange<T extends Comparable<T>> implements Range<T> {
 	}
 	
 	protected void order() {
-		if (state() == PairState.BOTH && min.get().compareTo(max.get()) >= 0) {
+		if (state() == PairState.BOTH && min.get().compareTo(max.get()) > 0) {
 			Optional<T> tmp = min;
 			min = max;
 			max = tmp;
@@ -34,10 +34,32 @@ public class ImmutableRange<T extends Comparable<T>> implements Range<T> {
 
 	@Override
 	synchronized public boolean includes(T object) {
-		if (state() != PairState.BOTH) {
-			throw new IllegalStateException("Both variables should have any value.");
+		order();
+		switch (state()) {
+		case BOTH:
+			return getMin().compareTo(object) <= 0 && getMax().compareTo(object) >= 0;
+		case ONLY_FIRST:
+			return getMin().compareTo(object) <= 0;
+		case ONLY_SECOND:
+			return getMax().compareTo(object) >= 0;
+		default:
+			throw new IllegalStateException("One or more variables should have any value.");
 		}
-		return getMin().compareTo(object) <= 0 && getMax().compareTo(object) >= 0;
+	}
+	
+	@Override
+	synchronized public boolean includesOpened(T object) {
+		order();
+		switch (state()) {
+		case BOTH:
+			return getMin().compareTo(object) < 0 && getMax().compareTo(object) > 0;
+		case ONLY_FIRST:
+			return getMin().compareTo(object) < 0;
+		case ONLY_SECOND:
+			return getMax().compareTo(object) > 0;
+		default:
+			throw new IllegalStateException("One or more variables should have any value.");
+		}
 	}
 
 	@Override
@@ -63,5 +85,21 @@ public class ImmutableRange<T extends Comparable<T>> implements Range<T> {
 	@Override
 	public PairState state() {
 		return PairState.optionalState(min, max);
+	}
+	
+	public static <T extends Comparable<T>> ImmutableRange<T> between(T min, T max) {
+		return new ImmutableRange<T>(min, max);
+	}
+	
+	public static <T extends Comparable<T>> ImmutableRange<T> beginAt(T min) {
+		return new ImmutableRange<T>(min, null);
+	}
+	
+	public static <T extends Comparable<T>> ImmutableRange<T> endWith(T max) {
+		return new ImmutableRange<T>(null, max);
+	}
+
+	public static <T extends Comparable<T>> ImmutableRange<T> empty() {
+		return new ImmutableRange<T>(null, null);
 	}
 }

@@ -35,5 +35,4 @@ public class MutableRange<T extends Comparable<T>> extends ImmutableRange<T> {
 	public static <T extends Comparable<T>> MutableRange<T> empty() {
 		return new MutableRange<T>(null, null);
 	}
-
 }

@@ -7,6 +7,8 @@ public interface Range<T extends Comparable<T>> {
 
 	public boolean includes(T object);
 
+	public boolean includesOpened(T object);
+
 	public T getFirst();
 
 	public T getSecond();
