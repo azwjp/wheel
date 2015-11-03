@@ -72,6 +72,33 @@ public abstract class RangeTest {
 		}
 		assertThat("Exception should be thrown.", thrown, is(true));
 	}
+	
+	@Test
+	public void testIncludeOpened() {
+		IntStream.rangeClosed(TEST_BEGIN, TEST_END).parallel().forEach(i -> {
+			assertThat("error at " + i, range1.includesOpened(new Int(i)), is(BEGIN < i && i < END));
+			assertThat("error at " + i, rangeBegin.includesOpened(new Int(i)), is(BEGIN < i));
+			assertThat("error at " + i, rangeEnd.includesOpened(new Int(i)), is(i < END));
+		});
+
+		min.set(END_2);
+		max.set(BEGIN_2);
+
+		IntStream.rangeClosed(TEST_BEGIN, TEST_END).parallel().forEach(i -> {
+			assertThat("error at " + i, range1.includesOpened(new Int(i)), is(BEGIN_2 < i && i < END_2));
+			assertThat("error at " + i, rangeBegin.includesOpened(new Int(i)), is(END_2 < i));
+			assertThat("error at " + i, rangeEnd.includesOpened(new Int(i)), is(i < BEGIN_2));
+		});
+
+		boolean thrown = false;
+		try {
+			rangeEmpty.includesOpened(new Int(0));
+			fail();
+		} catch (IllegalStateException e) {
+			thrown = true;
+		}
+		assertThat("Exception should be thrown.", thrown, is(true));
+	}
 
 	class Int implements Comparable<Int> {
 		private Integer i;
