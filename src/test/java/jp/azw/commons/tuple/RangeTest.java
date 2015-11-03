@@ -15,17 +15,19 @@ import org.junit.runners.JUnit4;
 public abstract class RangeTest {
 	static final int TEST_BEGIN = 0;
 	static final int TEST_END = 30;
-	
+
 	static final int BEGIN_2 = 10;
 	static final int END_2 = 15;
 	static final int BEGIN = 20;
+	static final int BEGIN_3 = 22;
 	static final int END = 25;
+	static final int END_3 = 30;
 
 	Int min = new Int(BEGIN);
 	Int max = new Int(END);
 
 	Range<Int> range1, range2, rangeBegin, rangeEnd, rangeEmpty;
-	
+
 	@Before
 	abstract public void setUp();
 
@@ -33,16 +35,19 @@ public abstract class RangeTest {
 	public void testGetMinMax() {
 		assertThat(min, is(allOf(sameInstance(range1.getMin()), sameInstance(range2.getMin()))));
 		assertThat(max, is(allOf(sameInstance(range1.getMax()), sameInstance(range2.getMax()))));
-		
+
 		max.set(BEGIN_2);
 		min.set(END_2);
 
 		assertThat(min, is(allOf(sameInstance(range1.getMax()), sameInstance(range2.getMax()))));
 		assertThat(max, is(allOf(sameInstance(range1.getMin()), sameInstance(range2.getMin()))));
+
+		assertThat(null, allOf(is(rangeBegin.getMax()), is(rangeEnd.getMin()), is(rangeEmpty.getMax()),
+				is(rangeEmpty.getMin())));
 	}
-	
+
 	@Test
-	public void testInclude(){
+	public void testInclude() {
 		IntStream.rangeClosed(TEST_BEGIN, TEST_END).parallel().forEach(i -> {
 			assertThat("error at " + i, range1.includes(new Int(i)), is(BEGIN <= i && i <= END));
 			assertThat("error at " + i, rangeBegin.includes(new Int(i)), is(BEGIN <= i));
@@ -67,12 +72,10 @@ public abstract class RangeTest {
 		}
 		assertThat("Exception should be thrown.", thrown, is(true));
 	}
-	
-	
-	
-	private class Int implements Comparable<Int> {
+
+	class Int implements Comparable<Int> {
 		private Integer i;
-		
+
 		public Int(int i) {
 			this.i = i;
 		}
@@ -81,7 +84,7 @@ public abstract class RangeTest {
 			this.i = i;
 			return this;
 		}
-		
+
 		public int get() {
 			return i;
 		}
@@ -90,6 +93,6 @@ public abstract class RangeTest {
 		public int compareTo(Int o) {
 			return i.compareTo(o.get());
 		}
-		
+
 	}
 }
