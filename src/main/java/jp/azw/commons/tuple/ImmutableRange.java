@@ -63,16 +63,6 @@ public class ImmutableRange<T extends Comparable<T>> implements Range<T> {
 	}
 
 	@Override
-	public T getFirst() {
-		return getMin();
-	}
-
-	@Override
-	public T getSecond() {
-		return getMax();
-	}
-
-	@Override
 	synchronized public boolean equals(Object obj) {
 		if (obj instanceof Range) {
 			Range<?> range = (Range<?>) obj;
