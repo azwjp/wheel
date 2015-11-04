@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>jp.azw</groupId>
-	<artifactId>commons</artifactId>
+	<artifactId>wheel</artifactId>
 	<version>1.2</version>
 
-	<name>commons</name>
+	<name>wheel</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>

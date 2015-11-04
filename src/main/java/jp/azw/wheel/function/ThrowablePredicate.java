@@ -1,4 +1,4 @@
-package jp.azw.commons.function;
+package jp.azw.wheel.function;
 
 @FunctionalInterface
 public interface ThrowablePredicate<T, E extends Throwable> {

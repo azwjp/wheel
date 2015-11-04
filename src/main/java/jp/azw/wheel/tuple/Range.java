@@ -1,4 +1,4 @@
-package jp.azw.commons.tuple;
+package jp.azw.wheel.tuple;
 
 public interface Range<T extends Comparable<T>> {
 	public T getMax();

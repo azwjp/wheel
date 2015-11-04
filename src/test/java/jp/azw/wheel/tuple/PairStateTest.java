@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.azw.commons.tuple;
+package jp.azw.wheel.tuple;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
@@ -10,6 +10,8 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+import jp.azw.wheel.tuple.PairState;
+
 /**
  * @author Akane Sayama
  *
@@ -17,7 +19,7 @@ import org.junit.Test;
 public class PairStateTest {
 
 	/**
-	 * Test method for {@link jp.azw.commons.tuple.PairState#optionalState(java.util.Optional, java.util.Optional)}.
+	 * Test method for {@link jp.azw.wheel.tuple.PairState#optionalState(java.util.Optional, java.util.Optional)}.
 	 */
 	@Test
 	public void testOptionalState() {
@@ -37,7 +39,7 @@ public class PairStateTest {
 	}
 
 	/**
-	 * Test method for {@link jp.azw.commons.tuple.PairState#state(java.lang.Object, java.lang.Object)}.
+	 * Test method for {@link jp.azw.wheel.tuple.PairState#state(java.lang.Object, java.lang.Object)}.
 	 */
 	@Test
 	public void testState() {

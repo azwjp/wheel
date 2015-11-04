@@ -1,4 +1,6 @@
-package jp.azw.commons.tuple;
+package jp.azw.wheel.tuple;
+
+import jp.azw.wheel.tuple.ImmutableRange;
 
 public class ImmutableRangeTest extends RangeTest {
 	@Override

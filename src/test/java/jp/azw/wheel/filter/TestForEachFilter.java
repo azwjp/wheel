@@ -1,4 +1,4 @@
-package jp.azw.commons.filter;
+package jp.azw.wheel.filter;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
@@ -10,6 +10,15 @@ import java.util.stream.IntStream;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import jp.azw.wheel.filter.AndFilter;
+import jp.azw.wheel.filter.EqFilter;
+import jp.azw.wheel.filter.Filter;
+import jp.azw.wheel.filter.ImpFilter;
+import jp.azw.wheel.filter.NandFilter;
+import jp.azw.wheel.filter.NorFilter;
+import jp.azw.wheel.filter.OrFilter;
+import jp.azw.wheel.filter.XorFilter;
 
 public class TestForEachFilter {
 	private List<Predicate<? super Integer>> isMultipleOf;

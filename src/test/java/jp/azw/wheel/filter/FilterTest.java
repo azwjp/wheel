@@ -1,4 +1,4 @@
-package jp.azw.commons.filter;
+package jp.azw.wheel.filter;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,8 @@ import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import jp.azw.wheel.filter.Filter;
 
 public class FilterTest {
 	private Filter<Void> filter;

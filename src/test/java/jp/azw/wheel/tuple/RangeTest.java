@@ -1,4 +1,4 @@
-package jp.azw.commons.tuple;
+package jp.azw.wheel.tuple;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -10,6 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import jp.azw.wheel.tuple.Range;
 
 @RunWith(value = JUnit4.class)
 public abstract class RangeTest {

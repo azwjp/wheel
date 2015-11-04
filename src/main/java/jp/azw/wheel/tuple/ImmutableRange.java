@@ -1,4 +1,4 @@
-package jp.azw.commons.tuple;
+package jp.azw.wheel.tuple;
 
 import java.util.Optional;
 

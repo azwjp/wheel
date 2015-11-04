@@ -1,13 +1,15 @@
 /**
  * 
  */
-package jp.azw.commons.tuple;
+package jp.azw.wheel.tuple;
 
 import static org.junit.Assert.*;
 import static org.hamcrest.Matchers.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import jp.azw.wheel.tuple.MutableRange;
 
 /**
  * @author Akane Sayama
@@ -26,8 +28,8 @@ public class MutableRangeTest extends RangeTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.azw.commons.tuple.MutableRange#setMax(java.lang.Comparable)},
-	 * {@link jp.azw.commons.tuple.MutableRange#setMin(java.lang.Comparable)}.
+	 * {@link jp.azw.wheel.tuple.MutableRange#setMax(java.lang.Comparable)},
+	 * {@link jp.azw.wheel.tuple.MutableRange#setMin(java.lang.Comparable)}.
 	 */
 	@Test
 	public void testSetMinMax() {

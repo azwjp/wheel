@@ -1,4 +1,4 @@
-package jp.azw.commons.filter;
+package jp.azw.wheel.filter;
 
 import java.util.Optional;
 import java.util.function.Predicate;

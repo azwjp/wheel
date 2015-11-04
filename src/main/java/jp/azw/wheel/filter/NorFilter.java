@@ -1,4 +1,4 @@
-package jp.azw.commons.filter;
+package jp.azw.wheel.filter;
 
 public class NorFilter<T> extends OrFilter<T> {
 
