@@ -99,6 +99,8 @@ public abstract class RangeTest {
 		}
 		assertThat("Exception should be thrown.", thrown, is(true));
 	}
+	
+	//TODO: equal
 
 	protected class Int implements Comparable<Int> {
 		private Integer i;
