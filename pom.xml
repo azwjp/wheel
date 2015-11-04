@@ -4,7 +4,7 @@
 
 	<groupId>jp.azw</groupId>
 	<artifactId>commons</artifactId>
-	<version>1.1</version>
+	<version>1.2</version>
 
 	<name>commons</name>
 	<url>http://maven.apache.org</url>
