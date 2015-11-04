@@ -13,20 +13,20 @@ import org.junit.runners.JUnit4;
 
 @RunWith(value = JUnit4.class)
 public abstract class RangeTest {
-	static final int TEST_BEGIN = 0;
-	static final int TEST_END = 30;
+	protected static final int TEST_BEGIN = 0;
+	protected static final int TEST_END = 30;
 
-	static final int BEGIN_2 = 10;
-	static final int END_2 = 15;
-	static final int BEGIN = 20;
-	static final int BEGIN_3 = 22;
-	static final int END = 25;
-	static final int END_3 = 30;
+	protected static final int BEGIN_2 = 10;
+	protected static final int END_2 = 15;
+	protected static final int BEGIN = 20;
+	protected static final int BEGIN_3 = 22;
+	protected static final int END = 25;
+	protected static final int END_3 = 30;
 
-	Int min = new Int(BEGIN);
-	Int max = new Int(END);
+	protected Int min = new Int(BEGIN);
+	protected Int max = new Int(END);
 
-	Range<Int> range1, range2, rangeBegin, rangeEnd, rangeEmpty;
+	protected Range<Int> range1, range2, rangeBegin, rangeEnd, rangeEmpty;
 
 	@Before
 	abstract public void setUp();
@@ -100,7 +100,7 @@ public abstract class RangeTest {
 		assertThat("Exception should be thrown.", thrown, is(true));
 	}
 
-	class Int implements Comparable<Int> {
+	protected class Int implements Comparable<Int> {
 		private Integer i;
 
 		public Int(int i) {

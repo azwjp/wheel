@@ -17,7 +17,7 @@ public enum PairState {
 		}
 	}
 	
-	public static <T, U> PairState nullState(T first, U second) {
+	public static <T, U> PairState state(T first, U second) {
 		return optionalState(Optional.ofNullable(first), Optional.ofNullable(second));
 	}
 }
