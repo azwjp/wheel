@@ -4,7 +4,7 @@
 
 	<groupId>jp.azw</groupId>
 	<artifactId>wheel</artifactId>
-	<version>1.2</version>
+	<version>1.2.1</version>
 
 	<name>wheel</name>
 	<url>http://maven.apache.org</url>
